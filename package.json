@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "경북전문대학교 간호학과 입시상담 챗봇",
   "main": "server.js",
-  "scripts": { "start": "node server.js", "dev": "MOCK=1 node server.js" },
-  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "MOCK=1 node server.js",
+    "build:worker": "node scripts/build-worker.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "license": "UNLICENSED",
   "private": true
 }

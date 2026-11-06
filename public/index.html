@@ -187,6 +187,7 @@ textarea::placeholder{color:#A3A9B8}
   </div>
 </div>
 
+<script src="config.js"></script>
 <script>
 (() => {
   const QUESTIONS = [
@@ -314,7 +315,7 @@ textarea::placeholder{color:#A3A9B8}
     const bubble = addMsg('bot', '<span class="typing"><i></i><i></i><i></i></span>');
     let answer = '';
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch((window.CHAT_API_URL || '/api/chat'), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history.slice(-12) }),
       });

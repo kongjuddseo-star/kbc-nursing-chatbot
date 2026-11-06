@@ -6,7 +6,9 @@
 | 파일 | 역할 |
 |---|---|
 | `public/index.html` | 모바일 채팅 화면 (홈페이지·유튜브·인스타그램·전화 버튼, D-day 배너, 빠른 질문) |
-| `server.js` | 화면 제공 + Claude API 대신 호출 (API 키를 브라우저에 노출하지 않음) |
+| `worker/worker.js` | Cloudflare Worker용 — API 키를 숨긴 채 Claude 호출 (자동 생성) |
+| `public/config.js` | Worker 주소 설정 |
+| `server.js` | (선택) Node 서버 하나로 화면+API 운영 |
 | `knowledge.js` | **챗봇이 아는 내용(지식베이스)과 답변 규칙** — 내용 수정은 여기서 |
 | `.env.example` | 환경변수 예시 |
 
@@ -19,16 +21,29 @@ node server.js              # http://localhost:3000
 npm run dev                 # API 키 없이 화면만 확인 (모의 답변)
 ```
 
-## Railway 배포 (GitHub 연결)
-1. 이 폴더를 GitHub 새 저장소에 올립니다. (`.env`는 `.gitignore`로 제외됨)
-2. Railway → New Project → Deploy from GitHub repo → 저장소 선택
-3. Variables 탭에 추가
-   - `ANTHROPIC_API_KEY` = 발급받은 키 (console.anthropic.com)
-   - `CLAUDE_MODEL` = `claude-sonnet-5-5` (비용을 줄이려면 `claude-haiku-5-5`)
-4. Settings → Networking → Generate Domain → 나온 주소를 QR코드로 만들어 홍보물에 넣으면 됩니다.
-5. 이후 GitHub에 push하면 자동 재배포됩니다.
+## 배포 (GitHub Pages + Cloudflare Worker, 무료)
+화면은 GitHub Pages, API 키는 Cloudflare Worker에 보관합니다. **API 키는 GitHub에 절대 올리지 않습니다.**
 
-상태 확인: `https://<도메인>/health`
+### 1) 화면 — GitHub Pages
+- main 브랜치에 push하면 `.github/workflows/pages.yml`이 `public/` 폴더를 자동 배포합니다.
+- 저장소 Settings → Pages → Source를 **GitHub Actions**로 설정
+- 주소: `https://<아이디>.github.io/kbc-nursing-chatbot/`
+
+### 2) API 키 보관 서버 — Cloudflare Worker
+1. dash.cloudflare.com 가입 → Workers & Pages → Create → Worker → 이름 `kbc-nursing-chatbot` → Deploy
+2. Edit code → 기존 코드를 모두 지우고 `worker/worker.js` 내용을 붙여넣기 → Deploy
+3. Settings → Variables and Secrets
+   - `ANTHROPIC_API_KEY` (**Secret**) = Claude API 키
+   - `ALLOWED_ORIGIN` (Text) = `https://<아이디>.github.io`
+4. Worker 주소(`https://kbc-nursing-chatbot.<계정>.workers.dev`)를 `public/config.js`의 `CHAT_API_URL`에 넣고 push
+
+확인: Worker 주소를 브라우저로 열어 `"keySet":true`가 보이면 정상입니다.
+
+### 지식베이스를 고친 뒤
+`knowledge.js` 수정 → `npm run build:worker` → 새 `worker/worker.js`를 Cloudflare에 다시 붙여넣기
+
+### (선택) 서버 한 대로 운영
+Railway 등 Node 서버가 있으면 `server.js` 하나로 화면+API를 함께 운영할 수 있습니다(`ANTHROPIC_API_KEY` 환경변수 설정).
 
 ## 내용 바꾸는 법
 - 모집인원·일정·장학금 등이 바뀌면 `knowledge.js`의 해당 줄만 고치세요.
