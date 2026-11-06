@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2A5C">
+<title>경북전문대 간호학과 입시상담</title>
+<meta name="description" content="경북전문대학교 간호학과 2027학년도 입시상담 챗봇 — 모집인원, 전형일정, 성적산출, 면접, 장학금, 실습병원까지 물어보세요.">
+<meta property="og:title" content="경북전문대 간호학과 입시상담 챗봇">
+<meta property="og:description" content="모집인원·일정·성적·면접·장학금, 24시간 바로 물어보세요!">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --navy:#1B2A5C; --navy-2:#2A3D7A; --rose:#E0566F; --rose-2:#F27A8E; --rose-soft:#FFE8EC;
+  --blush:#FFF6F7; --ink:#1E2330; --ink-2:#5B6273; --line:#EFE3E6; --white:#fff;
+  --bubble-bot:#FFFFFF; --shadow:0 6px 24px rgba(27,42,92,.10);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  color:var(--ink); background:var(--blush); -webkit-font-smoothing:antialiased;
+  word-break:keep-all; overflow-wrap:anywhere;
+}
+.app{max-width:560px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;background:var(--blush);position:relative}
+@media (min-width:600px){ body{background:#E9ECF5} .app{box-shadow:0 0 40px rgba(27,42,92,.12)} }
+
+/* ---------- Header ---------- */
+header{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:#fff; padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 12px; flex-shrink:0; position:relative; overflow:hidden;
+}
+header::after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,rgba(242,122,142,.45),transparent 70%)}
+.brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.logo{width:44px;height:44px;border-radius:14px;background:#fff;display:grid;place-items:center;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.brand h1{font-size:17px;margin:0;font-weight:800;letter-spacing:-.3px}
+.brand p{margin:2px 0 0;font-size:12.5px;opacity:.82;display:flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:#4BE08A;box-shadow:0 0 0 3px rgba(75,224,138,.25)}
+.links{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;position:relative;z-index:1}
+.links a{
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px 7px;border-radius:14px;
+  background:rgba(255,255,255,.12);color:#fff;text-decoration:none;font-size:11.5px;font-weight:600;
+  border:1px solid rgba(255,255,255,.14);transition:transform .15s,background .15s;
+}
+.links a:active{transform:scale(.95);background:rgba(255,255,255,.22)}
+.links .ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center}
+.ic.home{background:#fff;color:var(--navy)}
+.ic.yt{background:#FF0033;color:#fff}
+.ic.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);color:#fff}
+.ic.tel{background:#2FCB7A;color:#fff}
+
+/* ---------- Chat area ---------- */
+main{flex:1;overflow-y:auto;padding:14px 14px 8px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+.dday{
+  display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--rose-soft);border-radius:16px;
+  padding:10px 12px;margin-bottom:12px;font-size:13.5px;box-shadow:var(--shadow)
+}
+.dday b.badge{background:var(--rose);color:#fff;border-radius:10px;padding:5px 9px;font-size:13px;font-weight:800;white-space:nowrap}
+.dday span{color:var(--ink-2)} .dday strong{color:var(--ink)}
+
+.hero{background:#fff;border-radius:22px;padding:18px 16px 16px;box-shadow:var(--shadow);margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--rose),var(--rose-2),#FFB8C4)}
+.hero h2{font-size:20px;line-height:1.35;margin:4px 0 6px;font-weight:800;letter-spacing:-.5px}
+.hero h2 em{font-style:normal;color:var(--rose)}
+.hero p{margin:0;color:var(--ink-2);font-size:14px;line-height:1.55}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+.stat{background:var(--blush);border-radius:14px;padding:10px 12px}
+.stat b{display:block;font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.5px}
+.stat b small{font-size:13px;font-weight:700}
+.stat span{font-size:12px;color:var(--ink-2);line-height:1.35;display:block;margin-top:1px}
+.stat.rose b{color:var(--rose)}
+
+.sec-title{font-size:13px;font-weight:700;color:var(--ink-2);margin:4px 4px 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chip{
+  border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:9px 13px;
+  font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px
+}
+.chip:active{transform:scale(.96);background:var(--rose-soft);border-color:var(--rose-2)}
+@media (hover:hover){ .chip:hover{border-color:var(--rose-2);color:var(--rose)} }
+
+.msg{display:flex;gap:8px;margin:12px 0;animation:pop .22s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg.user{justify-content:flex-end}
+.avatar{width:32px;height:32px;border-radius:11px;background:#fff;display:grid;place-items:center;flex-shrink:0;box-shadow:0 2px 8px rgba(27,42,92,.10)}
+.bubble{max-width:82%;padding:11px 14px;border-radius:18px;font-size:15px;line-height:1.6;white-space:normal}
+.msg.bot .bubble{background:var(--bubble-bot);border-top-left-radius:6px;box-shadow:0 2px 10px rgba(27,42,92,.07)}
+.msg.user .bubble{background:linear-gradient(135deg,var(--rose),var(--rose-2));color:#fff;border-top-right-radius:6px;white-space:pre-wrap}
+.bubble p{margin:0 0 8px}.bubble p:last-child{margin-bottom:0}
+.bubble ul,.bubble ol{margin:4px 0 8px;padding-left:20px}.bubble li{margin:3px 0}
+.bubble strong{color:var(--navy)}
+.bubble a{color:var(--rose);font-weight:600;text-decoration:underline;text-underline-offset:2px;word-break:break-all}
+.typing{display:inline-flex;gap:4px;padding:4px 2px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#C9CEDB;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.err .bubble{background:#FFF1F1;color:#B42318}
+
+/* ---------- Composer ---------- */
+.dock{flex-shrink:0;background:linear-gradient(to top,var(--blush) 75%,rgba(255,246,247,0));padding:6px 12px calc(10px + var(--safe-b))}
+.quick{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.quick::-webkit-scrollbar{display:none}
+.quick .chip{white-space:nowrap;padding:7px 12px;font-size:13px;flex-shrink:0}
+.quick[hidden]{display:none}
+form{display:flex;align-items:flex-end;gap:8px;background:#fff;border-radius:24px;padding:6px 6px 6px 16px;box-shadow:0 4px 18px rgba(27,42,92,.12);border:1.5px solid transparent;transition:border-color .15s}
+form:focus-within{border-color:var(--rose-2)}
+textarea{flex:1;border:0;outline:0;resize:none;font:inherit;font-size:16px;line-height:1.45;max-height:120px;padding:8px 0;background:transparent;color:var(--ink)}
+textarea::placeholder{color:#A3A9B8}
+.send{width:42px;height:42px;border-radius:50%;border:0;background:var(--rose);color:#fff;display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:transform .15s,opacity .15s}
+.send:disabled{opacity:.35}
+.send:not(:disabled):active{transform:scale(.9)}
+.note{font-size:11px;color:#9AA0AE;text-align:center;margin:7px 0 0;line-height:1.4}
+.note a{color:inherit}
+.reset{position:absolute;right:14px;top:calc(env(safe-area-inset-top,0px) + 18px);z-index:2;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:10px;padding:6px 9px;font:inherit;font-size:12px;cursor:pointer}
+.reset[hidden]{display:none}
+.app.started .brand{padding-right:84px}
+.app.started .brand h1{font-size:15.5px}
+.app.started .logo{width:36px;height:36px;border-radius:11px}
+.app.started .links{gap:6px;margin-top:10px}
+.app.started .links a{flex-direction:row;justify-content:center;padding:6px 2px;font-size:11px;gap:4px;border-radius:12px;white-space:nowrap;letter-spacing:-.3px}
+@media (max-width:370px){ .app.started .links .ic{display:none} .links a{font-size:11px} }
+.app.started .links .ic{width:22px;height:22px;border-radius:7px}
+.app.started .links .ic svg{width:14px;height:14px}
+.app.started .reset{top:calc(env(safe-area-inset-top,0px) + 15px)}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 28s-11-6.6-11-15A6 6 0 0 1 16 9a6 6 0 0 1 11 4c0 8.4-11 15-11 15z" fill="#E0566F"/><rect x="14" y="11.5" width="4" height="11" rx="1" fill="#fff"/><rect x="10.5" y="15" width="11" height="4" rx="1" fill="#fff"/></svg>
+      </div>
+      <div>
+        <h1>경북전문대 간호학과 입시상담</h1>
+        <p><span class="dot"></span>24시간 바로 답변 · 2027학년도</p>
+      </div>
+    </div>
+    <button class="reset" id="reset" hidden aria-label="대화 새로 시작">↺ 처음으로</button>
+    <nav class="links" aria-label="간호학과 공식 채널">
+      <a href="http://nursing.kbc.ac.kr" target="_blank" rel="noopener">
+        <span class="ic home"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span>홈페이지
+      </a>
+      <a href="https://www.youtube.com/channel/UCe9SpI4p44WISF4Ffjcfv1A" target="_blank" rel="noopener">
+        <span class="ic yt"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>유튜브
+      </a>
+      <a href="https://www.instagram.com/kbc.nursing/" target="_blank" rel="noopener">
+        <span class="ic ig"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></span>인스타그램
+      </a>
+      <a href="tel:054-630-5133">
+        <span class="ic tel"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg></span>전화상담
+      </a>
+    </nav>
+  </header>
+
+  <main id="chat" aria-live="polite">
+    <div class="dday" id="dday" hidden></div>
+
+    <section class="hero" id="hero">
+      <h2>간호사의 꿈,<br><em>경북전문대 간호학과</em>에서 시작해요 👋</h2>
+      <p>모집인원, 전형일정, 성적 계산, 면접, 장학금, 실습병원까지 무엇이든 편하게 물어보세요.</p>
+      <div class="stats">
+        <div class="stat rose"><b>81.9<small>%</small></b><span>취업률 2년 연속<br>대구·경북 1위</span></div>
+        <div class="stat"><b>5,000<small>여 명</small></b><span>1985년부터 배출한<br>간호사</span></div>
+        <div class="stat"><b>31<small>%</small></b><span>2026 졸업생<br>수도권 대학병원 취업</span></div>
+        <div class="stat rose"><b>5<small>년</small></b><span>간호교육인증<br>(4년제 학사학위)</span></div>
+      </div>
+    </section>
+
+    <div class="sec-title">이런 걸 많이 물어봐요</div>
+    <div class="chips" id="starter"></div>
+  </main>
+
+  <div class="dock">
+    <div class="quick" id="quick" hidden></div>
+    <form id="form" autocomplete="off">
+      <textarea id="input" rows="1" maxlength="600" placeholder="궁금한 점을 입력하세요" aria-label="질문 입력"></textarea>
+      <button class="send" id="send" type="submit" disabled aria-label="보내기">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </button>
+    </form>
+    <p class="note">AI 상담 답변은 참고용이에요. 정확한 내용은 <a href="http://ipsi.kbc.ac.kr" target="_blank" rel="noopener">모집요강</a> 또는 054-630-5133으로 확인해 주세요.</p>
+  </div>
+</div>
+
+<script>
+(() => {
+  const QUESTIONS = [
+    ['📅', '수시 2차 일정 알려주세요', '수시 2차 일정'],
+    ['👥', '간호학과 모집인원은 몇 명인가요?', '모집인원'],
+    ['🧮', '내신 성적은 어떻게 계산하나요?', '성적 계산'],
+    ['🎤', '면접은 어떻게 보나요?', '면접'],
+    ['💰', '받을 수 있는 장학금이 있나요?', '장학금'],
+    ['🏥', '실습은 어느 병원에서 하나요?', '실습병원'],
+    ['💼', '졸업 후 어디에 취업하나요?', '취업현황'],
+    ['🏠', '기숙사가 있나요?', '기숙사'],
+    ['📝', '특성화고도 지원할 수 있나요?', '특성화고 지원'],
+    ['📍', '지역인재전형 자격이 궁금해요', '지역인재전형'],
+  ];
+  // 다가오는 일정 (D-day 배너)
+  const SCHEDULE = [
+    { label: '수시 2차 원서접수', start: '2026-11-11', end: '2026-11-25' },
+    { label: '수시 2차 면접', start: '2026-12-04', end: '2026-12-04' },
+    { label: '수시 2차 합격발표', start: '2026-12-09', end: '2026-12-09' },
+    { label: '정시 원서접수', start: '2027-01-04', end: '2027-01-20' },
+    { label: '정시 면접', start: '2027-01-26', end: '2027-01-26' },
+    { label: '자율모집 원서접수', start: '2027-01-21', end: '2027-02-27' },
+  ];
+
+  const $ = id => document.getElementById(id);
+  const chat = $('chat'), form = $('form'), input = $('input'), send = $('send');
+  const starter = $('starter'), quick = $('quick'), resetBtn = $('reset');
+  let history = [];
+  let busy = false;
+
+  const BOT_AVATAR = '<div class="avatar" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 32 32"><path d="M16 28s-11-6.6-11-15A6 6 0 0 1 16 9a6 6 0 0 1 11 4c0 8.4-11 15-11 15z" fill="#E0566F"/><rect x="14" y="11.5" width="4" height="11" rx="1" fill="#fff"/><rect x="10.5" y="15" width="11" height="4" rx="1" fill="#fff"/></svg></div>';
+
+  // ---- D-day ----
+  (function dday() {
+    const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+    const fmt = d => `${d.getMonth() + 1}/${d.getDate()}`;
+    for (const ev of SCHEDULE) {
+      const s = parse(ev.start), e = parse(ev.end);
+      if (today > e) continue;
+      const el = $('dday');
+      if (today >= s) {
+        const left = Math.round((e - today) / 864e5);
+        el.innerHTML = `<b class="badge">${left === 0 ? '오늘 마감' : '진행중'}</b><span><strong>${ev.label}</strong> ${fmt(s)}~${fmt(e)}${left ? ` · 마감까지 ${left}일` : ''}</span>`;
+      } else {
+        const d = Math.round((s - today) / 864e5);
+        el.innerHTML = `<b class="badge">D-${d}</b><span><strong>${ev.label}</strong> ${fmt(s)}${ev.end !== ev.start ? '~' + fmt(e) : ''}</span>`;
+      }
+      el.hidden = false;
+      break;
+    }
+  })();
+
+  // ---- Chips ----
+  function makeChip([emo, q, short], small) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip';
+    b.innerHTML = `<span aria-hidden="true">${emo}</span>${small ? short : q}`;
+    b.onclick = () => ask(q);
+    return b;
+  }
+  QUESTIONS.forEach(q => starter.appendChild(makeChip(q)));
+  QUESTIONS.forEach(q => quick.appendChild(makeChip(q, true)));
+
+  // ---- Safe mini-markdown ----
+  function esc(s) { return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  function inline(s) {
+    s = esc(s);
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/(https?:\/\/[^\s<)]+[^\s<).,])/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/(?<![\d-])(0\d{1,2}-\d{3,4}-\d{4})(?:~(\d))?/g, (m, n, r) => `<a href="tel:${n}">${n}${r ? '~' + r : ''}</a>`);
+    return s;
+  }
+  function render(md) {
+    const lines = md.replace(/\r/g, '').split('\n');
+    let html = '', list = null, para = [];
+    const flushP = () => { if (para.length) { html += '<p>' + para.map(inline).join('<br>') + '</p>'; para = []; } };
+    const flushL = () => { if (list) { html += `</${list}>`; list = null; } };
+    for (let raw of lines) {
+      const line = raw.replace(/^#{1,6}\s+/, '').trimEnd();
+      let m;
+      if ((m = line.match(/^\s*[-•*]\s+(.*)/))) {
+        flushP(); if (list !== 'ul') { flushL(); html += '<ul>'; list = 'ul'; }
+        html += '<li>' + inline(m[1]) + '</li>';
+      } else if ((m = line.match(/^\s*\d+[.)]\s+(.*)/))) {
+        flushP(); if (list !== 'ol') { flushL(); html += '<ol>'; list = 'ol'; }
+        html += '<li>' + inline(m[1]) + '</li>';
+      } else if (!line.trim()) {
+        flushP(); flushL();
+      } else {
+        flushL(); para.push(line);
+      }
+    }
+    flushP(); flushL();
+    return html;
+  }
+
+  function addMsg(role, html, cls = '') {
+    const wrap = document.createElement('div');
+    wrap.className = `msg ${role} ${cls}`;
+    wrap.innerHTML = (role === 'bot' ? BOT_AVATAR : '') + `<div class="bubble">${html}</div>`;
+    chat.appendChild(wrap);
+    scrollDown();
+    return wrap.querySelector('.bubble');
+  }
+  function scrollDown() { requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; }); }
+
+  function startedUI() {
+    quick.hidden = false;
+    resetBtn.hidden = false;
+    document.querySelector('.app').classList.add('started');
+  }
+
+  async function ask(text) {
+    text = (text || '').trim();
+    if (!text || busy) return;
+    busy = true; send.disabled = true;
+    startedUI();
+    const userBubble = addMsg('user', '');
+    userBubble.textContent = text;
+    history.push({ role: 'user', content: text });
+    input.value = ''; autosize();
+
+    const bubble = addMsg('bot', '<span class="typing"><i></i><i></i><i></i></span>');
+    let answer = '';
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history.slice(-12) }),
+      });
+      if (!res.ok) {
+        let msg = '잠시 후 다시 시도해 주세요.';
+        try { msg = (await res.json()).error || msg; } catch {}
+        throw new Error(msg);
+      }
+      const reader = res.body.getReader();
+      const dec = new TextDecoder();
+      let last = 0;
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        answer += dec.decode(value, { stream: true });
+        const now = performance.now();
+        if (now - last > 50) { bubble.innerHTML = render(answer); scrollDown(); last = now; }
+      }
+      answer += dec.decode();
+      bubble.innerHTML = render(answer || '답변을 받지 못했어요. 다시 시도해 주세요.');
+      if (answer) history.push({ role: 'assistant', content: answer });
+      else history.pop();
+    } catch (err) {
+      history.pop();
+      bubble.closest('.msg').classList.add('err');
+      bubble.innerHTML = render((err && err.message && !/fetch|network/i.test(err.message)) ? err.message
+        : '인터넷 연결을 확인하고 다시 시도해 주세요. 급한 문의는 054-630-5133으로 연락 주세요.');
+    } finally {
+      busy = false; send.disabled = !input.value.trim();
+      scrollDown();
+    }
+  }
+
+  function autosize() {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+    send.disabled = busy || !input.value.trim();
+  }
+  input.addEventListener('input', autosize);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && window.matchMedia('(hover:hover)').matches) {
+      e.preventDefault(); ask(input.value);
+    }
+  });
+  form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); input.blur(); });
+  resetBtn.onclick = () => {
+    if (busy) return;
+    history = [];
+    chat.querySelectorAll('.msg').forEach(m => m.remove());
+    quick.hidden = true; resetBtn.hidden = true;
+    document.querySelector('.app').classList.remove('started');
+    chat.scrollTop = 0;
+  };
+})();
+</script>
+</body>
+</html>
