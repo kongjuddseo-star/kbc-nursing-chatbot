@@ -188,6 +188,7 @@ textarea::placeholder{color:#A3A9B8}
 </div>
 
 <script src="config.js"></script>
+<script src="demo.js"></script>
 <script>
 (() => {
   const QUESTIONS = [
@@ -315,6 +316,19 @@ textarea::placeholder{color:#A3A9B8}
     const bubble = addMsg('bot', '<span class="typing"><i></i><i></i><i></i></span>');
     let answer = '';
     try {
+      // 데모 모드: 서버(Worker) 주소가 아직 없을 때 미리 준비한 답변으로 시연
+      if (!window.CHAT_API_URL && /github\.io$/.test(location.hostname) && window.demoAnswer) {
+        await new Promise(r => setTimeout(r, 500));
+        const full = window.demoAnswer(text);
+        for (let i = 0; i <= full.length; i += 3) {
+          bubble.innerHTML = render(full.slice(0, i)); scrollDown();
+          await new Promise(r => setTimeout(r, 12));
+        }
+        answer = full;
+        bubble.innerHTML = render(answer);
+        history.push({ role: 'assistant', content: answer });
+        return;
+      }
       const res = await fetch((window.CHAT_API_URL || '/api/chat'), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history.slice(-12) }),
